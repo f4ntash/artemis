@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "targets": {
+    "/experiments/cinematic-home": {
+      "targetKind": "new-ui",
+      "projectId": "3729faf7-12cf-4524-b88f-7b84cf38fb87",
+      "activeDraftId": "ff2873e7-0a7d-4fa6-a78f-ccd7c5a317c6",
+      "designSystemPath": ".superdesign/design-system.md",
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md",
+        ".superdesign/init/routes.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "888BE16D73F1C0E2FF6532EA63B5599AC680B9239BE3FCA5C31140856A5B833B",
+        ".superdesign/init/theme.md": "88A489D3FD3C3C6FACD917F91BC8A38466536C80EA455B9BAF0363B6AE1E4757",
+        ".superdesign/init/routes.md": "85F4227135D62ED68627A887F4519C2903CE6DDC6675DA922DE922012FE518B2"
+      },
+      "drafts": {
+        "ff2873e7-0a7d-4fa6-a78f-ccd7c5a317c6": {
+          "title": "FORMA 3D Cinematic Experience",
+          "visualDirection": "continuous architectural camera study in warm graphite, limestone and restrained amber",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-08-19T16:34:00-03:00"
+    },
+    "/": {
+      "targetKind": "existing-ui",
+      "projectId": "db2092dc-3b0e-43c1-be6a-236a263881dd",
+      "baselineDraftId": "181aeb67-64e2-4162-b4a4-cfcec4899aee",
+      "activeDraftId": "181aeb67-64e2-4162-b4a4-cfcec4899aee",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "26409031-c73d-4b71-b5fd-407f9a8b16dc",
+        "caffe5e3-c24d-4b25-8dc8-04efe58a52ba",
+        "aab1ee41-0667-4227-9b68-2a280edbb8ca",
+        "180ccd81-b88e-4364-96c2-6facba76acd6",
+        "be619399-7dc3-4bad-9363-473fc29429f2",
+        "6bdd6a70-8578-4d47-acee-d10bdac6abc5"
+      ],
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        "app/page.tsx",
+        "components/Navigation.tsx",
+        "components/workspace/Workspace.tsx",
+        "components/workspace/ContextCursor.tsx",
+        "components/workspace/H2OScene.tsx",
+        "components/workspace/TerrambuScene.tsx",
+        "components/workspace/ProductScene.tsx",
+        "components/workspace/DigitalSystemScene.tsx",
+        "components/three/H2OViewer.tsx",
+        "styles/globals.css"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "888BE16D73F1C0E2FF6532EA63B5599AC680B9239BE3FCA5C31140856A5B833B",
+        "app/page.tsx": "F4F1502E49345B46422B8E667146C53EB70D68E575BE2F228B362E797CAB2E5D",
+        "components/Navigation.tsx": "8FB2FDC185E288CDB52AAF2CCC2D81A4CE8149DA555E3900AC8CAB34EBF40F6B",
+        "components/workspace/Workspace.tsx": "2579E801362FDB9D06804CF34260C00FF793DBE59B370833723A245F480BD2F9",
+        "components/workspace/ContextCursor.tsx": "55B2E5BB5106D9898B9DEAD9455CB68C07FC098C1ADE10BC75D09D10A68D4816",
+        "components/workspace/H2OScene.tsx": "9BE78629B72C9905724DC9CF28DE5D9118A8F2A24CB0ABCD322B1AFEB9F28E84",
+        "components/workspace/TerrambuScene.tsx": "6AF079C95858F1291B83195468EE746EC5D5F8DC061D76596C27D0C9AE97FE55",
+        "components/workspace/ProductScene.tsx": "84414EE4A551B89F0E97C17ECFAF3069464780D056B0F61B20E52096FAD855B1",
+        "components/workspace/DigitalSystemScene.tsx": "78D9885CF9CE9EC4B7DC2CFD14E2FA93E8FF83225A3DEB3B17F9A4D7A9CB8E57",
+        "components/three/H2OViewer.tsx": "D6F420AE3705C6DD344776B1487667C0683A89DBD1FEE99ACCB2BE2AD6492ABB",
+        "styles/globals.css": "4CD7F6A342FD6AB0C19EDF7AA61C88A50E6EB8CBB170C77245FE1BDE3B6DB183"
+      },
+      "drafts": {
+        "47e47b39-98e9-41d4-9992-2f012b158dd6": {
+          "title": "FORMA 3D Reproduction",
+          "visualDirection": "faithful V4 baseline",
+          "currentVersion": 1
+        },
+        "b71303e1-8c9c-4cdd-bbf9-920beaff3ff9": {
+          "title": "FORMA 3D | Terrambú & Sistema Digital Update",
+          "visualDirection": "STEP 02 and STEP 04 editorial real-site sheets",
+          "parentDraftId": "47e47b39-98e9-41d4-9992-2f012b158dd6",
+          "currentVersion": 1
+        },
+        "181aeb67-64e2-4162-b4a4-cfcec4899aee": {
+          "title": "FORMA 3D | Refined Workspace Narrative",
+          "visualDirection": "phase-one interaction layer with project-specific gestures, restrained motion and technical annotations",
+          "currentVersion": 3
+        }
+      },
+      "updatedAt": "2026-08-19T19:18:00-03:00"
+    }
+  }
+}
