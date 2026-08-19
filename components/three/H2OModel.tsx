@@ -5,8 +5,9 @@ import { useThree } from "@react-three/fiber";
 import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import type { Group, Object3D } from "three";
 import { H2O_VARIANT_GROUPS, type H2OVariantState } from "./h2oVariants";
+import { withBasePath } from "@/lib/assetPath";
 
-const MODEL_PATH = "/models/preview_house.glb";
+const MODEL_PATH = withBasePath("models/preview_house.glb");
 const MODEL_ROTATION: [number, number, number] = [0, Math.PI, 0];
 
 type H2OModelProps = {

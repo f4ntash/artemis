@@ -2,6 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import ExteriorHouseScene from "@/components/three/ExteriorHouseScene";
+import {
+  DEFAULT_EXTERIOR_HOUSE_VARIANTS,
+  EXTERIOR_HOUSE_VARIANT_GROUPS,
+  type ExteriorHouseGroupId,
+} from "@/components/three/exteriorHouseVariants";
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
@@ -29,7 +34,19 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
   const [dragging, setDragging] = useState(false);
   const [expandedHotspot, setExpandedHotspot] = useState(false);
   const [variant, setVariant] = useState<Variant>("natural");
+  const [exteriorVariants, setExteriorVariants] = useState({ ...DEFAULT_EXTERIOR_HOUSE_VARIANTS });
+  const [exteriorSelection, setExteriorSelection] = useState<{ groupId: ExteriorHouseGroupId; variantId: string }>({
+    groupId: "poolLining",
+    variantId: DEFAULT_EXTERIOR_HOUSE_VARIANTS.poolLining,
+  });
   const [fullscreenSupported, setFullscreenSupported] = useState(true);
+
+  const activeExteriorGroup = EXTERIOR_HOUSE_VARIANT_GROUPS.find(
+    (group) => group.id === exteriorSelection.groupId,
+  )!;
+  const activeExteriorVariant = activeExteriorGroup.variants.find(
+    (item) => item.id === exteriorSelection.variantId,
+  )!;
 
   useEffect(() => {
     setFullscreenSupported(Boolean(slotRef.current?.requestFullscreen));
@@ -78,6 +95,7 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (variant === "natural") return;
     const keys: Record<string, [number, number]> = {
       ArrowLeft: [0, -6],
       ArrowRight: [0, 6],
@@ -97,9 +115,43 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
     else void slot.requestFullscreen();
   };
 
+  const selectExteriorVariant = (groupId: ExteriorHouseGroupId, variantId: string) => {
+    setExteriorVariants((current) => ({ ...current, [groupId]: variantId }));
+    setExteriorSelection({ groupId, variantId });
+  };
+
+  const resetExperience = () => {
+    setRotation({ x: -16, y: 28 });
+    if (variant !== "natural") return;
+    setExteriorVariants({ ...DEFAULT_EXTERIOR_HOUSE_VARIANTS });
+    setExteriorSelection({ groupId: "poolLining", variantId: DEFAULT_EXTERIOR_HOUSE_VARIANTS.poolLining });
+  };
+
+  const slotControls = (
+    <div className="slot-controls">
+      <button
+        className="quiet-button reset-button"
+        type="button"
+        data-od-id="producto-reiniciar"
+        onClick={resetExperience}
+      >
+        Reiniciar
+      </button>
+      <button
+        className="quiet-button fullscreen-button"
+        type="button"
+        data-od-id="producto-ampliar"
+        disabled={!fullscreenSupported}
+        onClick={toggleFullscreen}
+      >
+        Ampliar ↗
+      </button>
+    </div>
+  );
+
   return (
     <article
-      className={`scene scene-product${active ? " is-active" : ""}`}
+      className={`scene scene-product${active ? " is-active" : ""}${variant === "natural" ? " is-exterior-config" : ""}`}
       id="product"
       data-project-scene="2"
       data-od-id="escena-producto"
@@ -137,7 +189,53 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
           onKeyDown={onKeyDown}
         >
           <div className="slot-loading">Preparando objeto</div>
-          {active && variant === "natural" ? <ExteriorHouseScene /> : null}
+          {variant === "natural" ? (
+            <div className="exterior-config-layout">
+              <aside className="exterior-config-detail" aria-live="polite" aria-label="Detalle del material exterior">
+                <span className="exterior-config-detail-group">{activeExteriorGroup.label}</span>
+                <h3>{activeExteriorVariant.label}</h3>
+                <p>{activeExteriorVariant.description}</p>
+                <dl>
+                  {activeExteriorVariant.details.map((detail) => (
+                    <div key={detail.label}>
+                      <dt>{detail.label}</dt>
+                      <dd>{detail.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </aside>
+              <div className="exterior-render-column">
+                <div className="exterior-render-stage">
+                  {active ? <ExteriorHouseScene variants={exteriorVariants} /> : null}
+                </div>
+                <span className="drag-hint">Arrastrar · Rotar</span>
+              </div>
+              <aside className="exterior-config-panel" aria-label="Configuración de materiales exteriores">
+                <div className="exterior-variant-panel">
+                  {EXTERIOR_HOUSE_VARIANT_GROUPS.map((group) => (
+                    <div className="exterior-variant-group" key={group.id}>
+                      <span className="exterior-variant-label">{group.label}</span>
+                      <div className="exterior-variant-options">
+                        {group.variants.map((item) => (
+                          <button
+                            key={item.id}
+                            className="exterior-variant-button"
+                            type="button"
+                            aria-pressed={exteriorVariants[group.id] === item.id}
+                            aria-label={`${group.label}: ${item.label}`}
+                            onClick={() => selectExteriorVariant(group.id, item.id)}
+                          >
+                            {item.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {slotControls}
+              </aside>
+            </div>
+          ) : null}
           {variant !== "natural" ? (
             <div className="slot-fallback" aria-hidden="true">
               <div
@@ -168,26 +266,8 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
               <span className="hotspot-label">Módulo · Cambiar configuración</span>
             </button>
           ) : null}
-          <span className="drag-hint">Arrastrar · Rotar</span>
-          <div className="slot-controls">
-            <button
-              className="quiet-button reset-button"
-              type="button"
-              data-od-id="producto-reiniciar"
-              onClick={() => setRotation({ x: -16, y: 28 })}
-            >
-              Reiniciar
-            </button>
-            <button
-              className="quiet-button fullscreen-button"
-              type="button"
-              data-od-id="producto-ampliar"
-              disabled={!fullscreenSupported}
-              onClick={toggleFullscreen}
-            >
-              Ampliar ↗
-            </button>
-          </div>
+          {variant !== "natural" ? <span className="drag-hint">Arrastrar · Rotar</span> : null}
+          {variant !== "natural" ? slotControls : null}
         </div>
       </section>
       <div className="variant-strip" role="group" aria-label="Variantes del producto">

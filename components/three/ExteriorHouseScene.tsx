@@ -2,10 +2,17 @@
 
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
-import { Suspense, useLayoutEffect, useMemo } from "react";
+import { Suspense, useEffect, useLayoutEffect, useMemo } from "react";
 import * as THREE from "three";
+import {
+  EXTERIOR_HOUSE_VARIANT_GROUPS,
+  type ExteriorHouseGroupId,
+  type ExteriorHouseMaterialOverrides,
+  type ExteriorHouseVariantState,
+} from "./exteriorHouseVariants";
+import { withBasePath } from "@/lib/assetPath";
 
-const MODEL_PATH = "/models/exterior_house.glb";
+const MODEL_PATH = withBasePath("models/exterior_house.glb");
 
 // ============================================================
 // EXTERIOR HOUSE CAMERA CONFIG
@@ -16,7 +23,7 @@ const EXTERIOR_HOUSE_CAMERA_CONFIG = {
   target: [0, 0, 0] as [number, number, number],
   fov: 36,
   fitPadding: 1.06,
-  minDistanceFactor: 0.58,
+  minDistanceFactor: 0,
   maxDistanceFactor: 1.8,
   azimuthRange: THREE.MathUtils.degToRad(60),
   minPolarAngle: THREE.MathUtils.degToRad(36),
@@ -28,11 +35,60 @@ const INITIAL_AZIMUTH = Math.atan2(
   EXTERIOR_HOUSE_CAMERA_CONFIG.direction[2],
 );
 
-function ExteriorHouseModel() {
+type ExteriorHouseModelProps = {
+  variants: ExteriorHouseVariantState;
+};
+
+const cloneMaterialWithOverrides = (
+  material: THREE.Material,
+  overrides: ExteriorHouseMaterialOverrides,
+) => {
+  const clone = material.clone();
+  if ("color" in clone && clone.color instanceof THREE.Color) clone.color.set(overrides.color);
+  if ("roughness" in clone) clone.roughness = overrides.roughness;
+  if ("metalness" in clone) clone.metalness = overrides.metalness;
+  clone.needsUpdate = true;
+  return clone;
+};
+
+function ExteriorHouseModel({ variants }: ExteriorHouseModelProps) {
   const gltf = useGLTF(MODEL_PATH);
-  const { scene, center, radius } = useMemo(() => {
+  const invalidate = useThree((state) => state.invalidate);
+  const { scene, center, radius, targetMeshes, variantMaterials } = useMemo(() => {
     const clonedScene = gltf.scene.clone(true);
     clonedScene.updateMatrixWorld(true);
+
+    const meshes = new Map<string, THREE.Mesh>();
+    clonedScene.traverse((object) => {
+      if (object instanceof THREE.Mesh) meshes.set(object.name, object);
+    });
+
+    const targets = new Map<ExteriorHouseGroupId, THREE.Mesh>();
+    const materials = new Map<string, THREE.Material | THREE.Material[]>();
+
+    EXTERIOR_HOUSE_VARIANT_GROUPS.forEach((group) => {
+      const target = meshes.get(group.targetMeshName);
+      if (!target) return;
+      targets.set(group.id, target);
+
+      group.sourceMeshNames.forEach((meshName) => {
+        const mesh = meshes.get(meshName);
+        if (mesh) mesh.visible = meshName === group.targetMeshName;
+      });
+
+      group.variants.forEach((variant) => {
+        const source = meshes.get(variant.sourceMeshName);
+        if (!source) return;
+        const sourceMaterials = Array.isArray(source.material) ? source.material : [source.material];
+        const preparedMaterials = variant.materialOverrides
+          ? sourceMaterials.map((material) => cloneMaterialWithOverrides(material, variant.materialOverrides!))
+          : sourceMaterials;
+        materials.set(
+          `${group.id}:${variant.id}`,
+          Array.isArray(source.material) ? preparedMaterials : preparedMaterials[0],
+        );
+      });
+    });
 
     const box = new THREE.Box3().setFromObject(clonedScene);
     const modelCenter = box.getCenter(new THREE.Vector3());
@@ -42,8 +98,20 @@ function ExteriorHouseModel() {
       scene: clonedScene,
       center: modelCenter,
       radius: sphere.radius,
+      targetMeshes: targets,
+      variantMaterials: materials,
     };
   }, [gltf.scene]);
+
+  useEffect(() => {
+    EXTERIOR_HOUSE_VARIANT_GROUPS.forEach((group) => {
+      const target = targetMeshes.get(group.id);
+      const material = variantMaterials.get(`${group.id}:${variants[group.id]}`);
+      if (!target || !material) return;
+      target.material = material;
+    });
+    invalidate();
+  }, [invalidate, targetMeshes, variantMaterials, variants]);
 
   return (
     <>
@@ -92,7 +160,7 @@ function CameraAndControls({ radius }: { radius: number }) {
   );
 }
 
-export default function ExteriorHouseScene() {
+export default function ExteriorHouseScene({ variants }: ExteriorHouseModelProps) {
   return (
     <div className="exterior-house-viewer" aria-hidden="true">
       <Canvas
@@ -107,10 +175,9 @@ export default function ExteriorHouseScene() {
         <directionalLight position={[5, 8, 6]} intensity={2.1} />
         <directionalLight position={[-4, 3, -5]} intensity={0.65} />
         <Suspense fallback={null}>
-          <ExteriorHouseModel />
+          <ExteriorHouseModel variants={variants} />
         </Suspense>
       </Canvas>
     </div>
   );
 }
-
