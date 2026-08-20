@@ -52,7 +52,8 @@ export default function Capabilities() {
       <header className="cap-head">
         <span className="label">Capacidades</span>
         <p>
-          Si es difícil de mostrar, lo hacemos explorable. Si tiene variantes, lo hacemos configurable. Si todavía no existe, lo hacemos visible.
+          Desarrollamos experiencias digitales que combinan visualización 3D, interfaz, contenido y tecnología web para
+          presentar productos con mayor claridad.
         </p>
       </header>
       <ol className="cap-list">
@@ -65,7 +66,7 @@ export default function Capabilities() {
         ))}
       </ol>
       <div className="cap-engine">
-        <span className="label">FORMA Engine</span>
+        <span className="label">ARTEMIS Engine</span>
         <h2>Un sistema reutilizable para construir configuradores 3D a partir de productos y proyectos reales.</h2>
         <p>
           Modelo 3D + partes configurables + variantes + interfaz + web → experiencia lista para integrar.
@@ -76,7 +77,7 @@ export default function Capabilities() {
       </div>
       <div className="cap-audience">
         <span className="label">Para quién</span>
-        <ol className="audience-list">
+        <ol className="audience-list cap-item">
           {audiences.map((audience, index) => (
             <li key={audience.title}>
               <span className="cap-number">{String(index + 1).padStart(2, "0")}</span>
@@ -85,10 +86,6 @@ export default function Capabilities() {
             </li>
           ))}
         </ol>
-      </div>
-      <div className="cap-technology">
-        <span className="label">Technology</span>
-        <p>{technologies.join(" · ")}</p>
       </div>
     </section>
   );

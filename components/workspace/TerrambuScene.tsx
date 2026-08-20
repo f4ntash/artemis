@@ -1,8 +1,8 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import LiveWebsiteFrame from "./LiveWebsiteFrame";
-import { digitalProjects, sceneCount } from "./workspaceData";
+import { digitalProjects } from "./workspaceData";
 
 type TerrambuSceneProps = {
   sceneStyle: React.CSSProperties;
@@ -10,46 +10,24 @@ type TerrambuSceneProps = {
   onSceneLink: (index: number) => void;
 };
 
+const websiteProjects = digitalProjects.filter((project) => project.type === "website");
+
 export default function TerrambuScene({ sceneStyle, active, onSceneLink }: TerrambuSceneProps) {
-  const retainedScrollY = useRef<number | null>(null);
   const [activeProjectId, setActiveProjectId] = useState<(typeof digitalProjects)[number]["id"]>(
     digitalProjects[0].id,
   );
   const activeProject = digitalProjects.find((project) => project.id === activeProjectId) ?? digitalProjects[0];
 
-  useLayoutEffect(() => {
-    if (retainedScrollY.current === null) return;
-    const scrollY = retainedScrollY.current;
-    retainedScrollY.current = null;
-    let restoreFrame = 0;
-    const frame = window.requestAnimationFrame(() => {
-      const root = document.documentElement;
-      const previousBehavior = root.style.scrollBehavior;
-      root.style.scrollBehavior = "auto";
-      void root.offsetHeight;
-      window.scrollTo(0, scrollY);
-      restoreFrame = window.requestAnimationFrame(() => {
-        root.style.scrollBehavior = previousBehavior;
-      });
-    });
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.cancelAnimationFrame(restoreFrame);
+  useEffect(() => {
+    const onProjectSelect = (event: Event) => {
+      const projectId = (event as CustomEvent<{ projectId?: (typeof digitalProjects)[number]["id"] }>).detail.projectId;
+      if (!projectId || !websiteProjects.some((project) => project.id === projectId)) return;
+      setActiveProjectId(projectId);
     };
-  }, [activeProjectId]);
 
-  const selectProject = (projectId: (typeof digitalProjects)[number]["id"]) => {
-    const scene = document.getElementById("terrambu");
-    const workspace = scene?.closest<HTMLElement>(".workspace");
-    if (scene && workspace && !window.matchMedia("(max-width:900px)").matches) {
-      const sceneIndex = Number(scene.dataset.projectScene);
-      const range = workspace.offsetHeight - window.innerHeight;
-      retainedScrollY.current = workspace.offsetTop + (sceneIndex / (sceneCount - 1)) * range;
-    } else if (retainedScrollY.current === null) {
-      retainedScrollY.current = window.scrollY;
-    }
-    setActiveProjectId(projectId);
-  };
+    window.addEventListener("forma3d:web-project", onProjectSelect);
+    return () => window.removeEventListener("forma3d:web-project", onProjectSelect);
+  }, []);
 
   return (
     <article
@@ -59,27 +37,6 @@ export default function TerrambuScene({ sceneStyle, active, onSceneLink }: Terra
       data-od-id="escena-terrambu"
       style={sceneStyle}
     >
-      <div className="digital-project-tabs" role="tablist" aria-label="Proyectos digitales">
-        {digitalProjects.map((project) => (
-          <button
-            key={project.id}
-            className="variant-button"
-            type="button"
-            role="tab"
-            aria-selected={activeProject.id === project.id}
-            aria-pressed={activeProject.id === project.id}
-            onMouseDown={(event) => event.preventDefault()}
-            onPointerDown={(event) => {
-              retainedScrollY.current = window.scrollY;
-              event.preventDefault();
-            }}
-            onClick={() => selectProject(project.id)}
-          >
-            {project.number}
-          </button>
-        ))}
-      </div>
-
       <div className="digital-project-content" key={activeProject.id}>
         {activeProject.type === "website" ? (
           <>

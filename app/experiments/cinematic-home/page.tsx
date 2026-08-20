@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import CinematicExperience from "@/components/cinematic/CinematicExperience";
 
 export const metadata: Metadata = {
-  title: "Cinematic Home — FORMA 3D",
-  description: "Estudio experimental de cámara, materialidad e iluminación para FORMA 3D.",
+  title: "Cinematic Home — ARTEMIS",
+  description: "Estudio experimental de cámara, materialidad e iluminación para ARTEMIS.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function CinematicHomePage() {

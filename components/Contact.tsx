@@ -2,23 +2,29 @@ export default function Contact() {
   return (
     <section className="contact dark" id="contacto" data-od-id="contacto">
       <div className="contact-copy">
+        <span className="label">Contacto</span>
         <h2 data-od-id="contacto-titulo">
-          Contanos qué querés
+          Veamos cómo presentar mejor
           <br />
-          hacer visible.
+          tu producto o proyecto.
         </h2>
         <p>
-          Producto, espacio o proyecto. Si hoy es difícil de mostrar, probablemente podamos convertirlo en una experiencia interactiva.
+          Contanos qué necesitás mostrar.
+          <br />
+          Podés enviarnos una referencia, fotografía, catálogo, plano o modelo 3D y analizamos qué tipo de experiencia
+          puede adaptarse mejor.
         </p>
       </div>
       <div className="contact-action">
         <a href="mailto:hola@forma3d.com" data-cursor="Abrir" data-od-id="contacto-iniciar">
-          Contanos tu proyecto ↗
+          Contanos sobre tu proyecto
         </a>
-        <span className="meta">hola@forma3d.com</span>
+        <a href="mailto:hola@forma3d.com" data-cursor="Abrir">
+          Contacto
+        </a>
       </div>
       <footer className="contact-footer">
-        <span className="meta">FORMA 3D · Argentina</span>
+        <span className="meta">ARTEMIS · Argentina</span>
         <span className="meta">Ver · Probar · Configurar · Decidir</span>
       </footer>
     </section>

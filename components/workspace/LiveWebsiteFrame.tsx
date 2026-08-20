@@ -11,7 +11,7 @@ export default function LiveWebsiteFrame({ title, url, externalUrl, className = 
       <header className="live-website-toolbar">
         <span>Live website</span>
         <span className="live-website-status">● Live</span>
-        <a href={externalUrl} target="_blank" rel="noopener noreferrer">
+        <a href={externalUrl} target="_blank" rel="noopener noreferrer" data-analytics="external_project_visit">
           Abrir sitio ↗
         </a>
       </header>

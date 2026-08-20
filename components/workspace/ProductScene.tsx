@@ -187,7 +187,7 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
                   <span className="scene-number">03 / 04</span>
                   <span className="kind">Preventa interactiva</span>
                   <h2 data-od-id="producto-titulo">Exterior House</h2>
-                  <span className="kind">Configurador 3D</span>
+                  <span className="kind">Preventa interactiva</span>
                 </div>
                 <span className="exterior-config-detail-group">{activeExteriorGroup.label}</span>
                 <h3>{activeExteriorVariant.label}</h3>
@@ -200,7 +200,7 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
                     </div>
                   ))}
                 </dl>
-                <p className="panel-commercial-copy">Mostrá y configurá el proyecto antes de construirlo.</p>
+                <p className="panel-commercial-copy">Mostrá materiales y terminaciones antes de construir.</p>
                 <a className="contextual-cta" href="#contacto" data-service="preventa" data-cursor="Abrir">
                   Quiero una demo con mi proyecto ↗
                 </a>

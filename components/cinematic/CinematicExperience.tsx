@@ -64,8 +64,8 @@ export default function CinematicExperience() {
       <div className={styles.grain} aria-hidden="true" />
 
       <header className={styles.chrome}>
-        <a className={styles.wordmark} href="/" aria-label="Volver a FORMA 3D">
-          FORMA 3D
+        <a className={styles.wordmark} href="/" aria-label="Volver a ARTEMIS">
+          ARTEMIS
         </a>
         <span className={styles.location}>ESTUDIO / ARGENTINA</span>
       </header>
@@ -82,7 +82,7 @@ export default function CinematicExperience() {
         <div className={`${styles.sceneFrame} ${styles.introFrame}`}>
           <div className={styles.introCopy}>
             <span className={styles.sceneIndex}>00 / INTRO</span>
-            <h1 id="cinematic-intro-title">FORMA 3D</h1>
+            <h1 id="cinematic-intro-title">ARTEMIS</h1>
             <p>Diseño que toma forma.</p>
           </div>
           <span className={styles.scrollCue}>SCROLL TO EXPLORE</span>

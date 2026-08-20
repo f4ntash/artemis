@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { href: "#trabajo", key: "trabajo", label: "Trabajo" },
+  { href: "#que-hacemos", key: "que-hacemos", label: "Qué hacemos" },
+  { href: "#proyectos", key: "proyectos", label: "Proyectos" },
   { href: "#capacidades", key: "capacidades", label: "Capacidades" },
   { href: "#contacto", key: "contacto", label: "Contacto" },
 ];
@@ -36,7 +37,7 @@ export default function Navigation() {
   }, []);
 
   useEffect(() => {
-    const sections = ["trabajo", "capacidades", "contacto"]
+    const sections = ["que-hacemos", "proyectos", "capacidades", "contacto"]
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
 
@@ -65,8 +66,8 @@ export default function Navigation() {
       aria-label="Navegación principal"
       data-od-id="navegacion-principal"
     >
-      <a className="brand" href="#trabajo" data-od-id="marca-forma-3d" onClick={closeMenu}>
-        FORMA 3D
+      <a className="brand" href="#que-hacemos" data-od-id="marca-forma-3d" onClick={closeMenu}>
+        ARTEMIS
       </a>
       <button
         className="menu-toggle"

@@ -89,11 +89,11 @@ export default function H2OScene({ sceneStyle, active, onSceneLink }: H2OScenePr
           <div className="demo-panel-intro">
             <span className="scene-number">01 / 04</span>
             <span className="kind">Showroom digital</span>
-            <h1 data-od-id="h2o-titulo">H2O</h1>
-            <span className="kind">Configurador 3D</span>
+            <h2 data-od-id="h2o-titulo">H2O</h2>
+            <span className="kind">Configurador de producto</span>
           </div>
           <span className="h2o-detail-group">{activeGroup.label}</span>
-          <h2>{activeVariant.label}</h2>
+          <h3>{activeVariant.label}</h3>
           <p>{activeVariant.description}</p>
           <dl>
             {activeVariant.details.map((detail) => (
@@ -103,7 +103,7 @@ export default function H2OScene({ sceneStyle, active, onSceneLink }: H2OScenePr
               </div>
             ))}
           </dl>
-          <p className="panel-commercial-copy">Tus clientes pueden explorar materiales y terminaciones antes de comprar.</p>
+          <p className="panel-commercial-copy">Tus clientes pueden explorar materiales y terminaciones en tiempo real.</p>
           <a className="contextual-cta" href="#contacto" data-service="showroom" data-cursor="Abrir">
             Quiero esto para mi producto ↗
           </a>

@@ -6,10 +6,9 @@ import ContextCursor from "./ContextCursor";
 import DigitalSystemScene from "./DigitalSystemScene";
 import H2OScene from "./H2OScene";
 import ProductScene from "./ProductScene";
-import ProjectIndex from "./ProjectIndex";
 import StepTransition from "./StepTransition";
 import TerrambuScene from "./TerrambuScene";
-import { sceneCount } from "./workspaceData";
+import { digitalProjects, sceneCount } from "./workspaceData";
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 const mobileQuery = "(max-width:900px)";
@@ -29,10 +28,13 @@ export default function Workspace() {
   const tickingRef = useRef(false);
   const currentSceneRef = useRef(0);
   const [currentScene, setCurrentScene] = useState(0);
+  const [showroomCategory, setShowroomCategory] = useState<"3d" | "web" | "immersive">("3d");
+  const [activeWebProjectId, setActiveWebProjectId] = useState<(typeof digitalProjects)[number]["id"]>(
+    digitalProjects[0].id,
+  );
   const [sceneDirection, setSceneDirection] = useState<"forward" | "backward">("forward");
   const [rawScene, setRawScene] = useState(0);
   const [compact, setCompact] = useState(false);
-  const [outside, setOutside] = useState(false);
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
 
   const dark = currentScene === 1 || currentScene === 3;
@@ -76,7 +78,9 @@ export default function Workspace() {
     if (index !== currentSceneRef.current) {
       setSceneDirection(index > currentSceneRef.current ? "forward" : "backward");
       currentSceneRef.current = index;
+      window.dispatchEvent(new CustomEvent("forma3d:project-view", { detail: { scene: index } }));
     }
+    setShowroomCategory(index === 1 ? "web" : index === 3 ? "immersive" : "3d");
     setCurrentScene(index);
     setRawScene(raw);
     dispatchChrome({ dark: index === 1 || index === 3 });
@@ -84,20 +88,10 @@ export default function Workspace() {
 
   const updateWorkspace = useCallback(() => {
     tickingRef.current = false;
-    if (window.matchMedia(mobileQuery).matches) return;
-    const workspace = workspaceRef.current;
-    if (!workspace) return;
-
-    const rect = workspace.getBoundingClientRect();
-    const range = workspace.offsetHeight - window.innerHeight;
-    const progress = clamp(-rect.top / range, 0, 1);
-    const raw = progress * (sceneCount - 1);
-    setScene(Math.round(raw), raw);
-
     const nextCompact = window.scrollY > 40;
     setCompact(nextCompact);
     dispatchChrome({ compact: nextCompact });
-  }, [setScene]);
+  }, []);
 
   const requestWorkspaceUpdate = useCallback(() => {
     if (tickingRef.current) return;
@@ -108,18 +102,17 @@ export default function Workspace() {
   const goToScene = useCallback((index: number) => {
     const workspace = workspaceRef.current;
     if (!workspace) return;
-    if (window.matchMedia(mobileQuery).matches) {
-      const target = workspace.querySelector<HTMLElement>(`[data-project-scene="${index}"]`);
-      if (target) window.scrollTo({ top: target.offsetTop, behavior: "smooth" });
-      return;
-    }
+    setScene(index, index);
+    window.scrollTo({ top: workspace.offsetTop, behavior: "smooth" });
+  }, [setScene]);
 
-    const range = workspace.offsetHeight - window.innerHeight;
-    window.scrollTo({
-      top: workspace.offsetTop + (index / (sceneCount - 1)) * range,
-      behavior: "smooth",
-    });
-  }, []);
+  const selectWebProject = useCallback((projectId: (typeof digitalProjects)[number]["id"]) => {
+    setActiveWebProjectId(projectId);
+    setScene(1, 1);
+    window.dispatchEvent(new CustomEvent("forma3d:web-project", { detail: { projectId } }));
+    const workspace = workspaceRef.current;
+    if (workspace) window.scrollTo({ top: workspace.offsetTop, behavior: "smooth" });
+  }, [setScene]);
 
   useEffect(() => {
     dispatchChrome({ dark, compact });
@@ -134,7 +127,7 @@ export default function Workspace() {
     setViewport({ width: window.innerWidth, height: window.innerHeight });
     window.addEventListener("scroll", requestWorkspaceUpdate, { passive: true });
     window.addEventListener("resize", onResize);
-    setScene(0, 0);
+    setScene(currentSceneRef.current, currentSceneRef.current);
     requestWorkspaceUpdate();
     return () => {
       window.removeEventListener("scroll", requestWorkspaceUpdate);
@@ -163,38 +156,79 @@ export default function Workspace() {
   }, [setScene]);
 
   useEffect(() => {
-    const sections = ["trabajo", "capacidades", "contacto"]
-      .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section));
+    const onShowroomScene = (event: Event) => {
+      const scene = (event as CustomEvent<{ scene?: number }>).detail.scene;
+      if (typeof scene === "number") goToScene(scene);
+    };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          setOutside(entry.target.id !== "trabajo");
-        });
-      },
-      { rootMargin: "-35% 0px -60% 0px" },
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
+    window.addEventListener("forma3d:showroom-scene", onShowroomScene);
+    return () => window.removeEventListener("forma3d:showroom-scene", onShowroomScene);
+  }, [goToScene]);
 
   return (
     <>
-      <ProjectIndex currentScene={currentScene} dark={dark} outside={outside} onSelect={goToScene} />
       <ContextCursor />
+      <section className="showroom-intro" id="proyectos">
+        <span className="label">Proyectos</span>
+        <h2>
+          Trabajo real.
+          <br />
+          Experiencias interactivas.
+        </h2>
+        <p>Una selección de proyectos donde combinamos desarrollo web, visualización 3D e interacción.</p>
+      </section>
       <section
         ref={workspaceRef}
         className={`workspace ${workspaceStyles.workspaceComponent}`}
-        id="trabajo"
+        id="showroom-3d"
         data-od-id="workspace-trabajo"
       >
         <div className="workspace-stage" data-scene={currentScene + 1} data-od-id="escena-principal">
+          <nav className={`showroom-nav${dark ? " dark" : ""}`} aria-label="Showroom">
+            <div className="showroom-category-tabs" aria-label="Categorías">
+              <button type="button" aria-current={showroomCategory === "3d" ? "true" : undefined} onClick={() => goToScene(currentScene === 2 ? 2 : 0)}>
+                3D interactivo
+              </button>
+              <button type="button" aria-current={showroomCategory === "web" ? "true" : undefined} onClick={() => goToScene(1)}>
+                Web
+              </button>
+              <button type="button" aria-current={showroomCategory === "immersive" ? "true" : undefined} onClick={() => goToScene(3)}>
+                Inmersivo
+              </button>
+            </div>
+            <div className="showroom-project-tabs" aria-label="Proyectos">
+              {showroomCategory === "3d" && (
+                <>
+                  <button type="button" aria-current={currentScene === 0 ? "true" : undefined} onClick={() => goToScene(0)}>
+                    01 H2O
+                  </button>
+                  <button type="button" aria-current={currentScene === 2 ? "true" : undefined} onClick={() => goToScene(2)}>
+                    02 Exterior House
+                  </button>
+                </>
+              )}
+              {showroomCategory === "web" && (
+                <>
+                  {digitalProjects
+                    .filter((project) => project.type === "website")
+                    .map((project) => (
+                      <button
+                        key={project.id}
+                        type="button"
+                        aria-current={activeWebProjectId === project.id ? "true" : undefined}
+                        onClick={() => selectWebProject(project.id)}
+                      >
+                        {project.number} {project.title}
+                      </button>
+                    ))}
+                </>
+              )}
+              {showroomCategory === "immersive" && <span>Próximamente</span>}
+            </div>
+          </nav>
           <span className="axis axis-x" />
           <span className="axis axis-y" />
-          <div className="stage-status label">3D · Web · Sistemas</div>
+          <div className="stage-status label">Showroom · Proyectos reales</div>
 
           <StepTransition step={currentScene} direction={sceneDirection}>
             <H2OScene sceneStyle={sceneStyle(0)} active={sceneMetrics[0].opacity > 0.12} onSceneLink={goToScene} />
