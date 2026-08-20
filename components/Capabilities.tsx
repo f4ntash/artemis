@@ -1,28 +1,59 @@
 const capabilities = [
   {
-    title: "Configuradores 3D",
-    description: "Experiencias web interactivas para visualizar, personalizar y probar productos en tiempo real.",
+    title: "Configuración 3D",
+    description: "Productos con materiales, colores, medidas y variantes editables directamente desde el navegador.",
   },
   {
-    title: "Visualización de producto",
-    description: "Modelado, materiales, iluminación y presentación digital de productos y espacios.",
+    title: "Visualización interactiva",
+    description: "Espacios y proyectos navegables antes de ser construidos.",
   },
   {
-    title: "Desarrollo web",
-    description: "Sitios y productos digitales personalizados, rápidos y orientados a experiencia.",
+    title: "Experiencias web",
+    description: "Sitios y productos digitales para negocios donde lo visual forma parte de la venta.",
   },
   {
-    title: "Experiencias interactivas",
-    description: "Interfaces, mapas, storytelling digital y herramientas web que invitan a explorar.",
+    title: "Integraciones",
+    description: "Configuradores embebibles en sitios existentes, catálogos, ecommerce o herramientas comerciales.",
+  },
+  {
+    title: "RA / RV",
+    description: "Extensión de experiencias 3D al espacio físico y entornos inmersivos.",
   },
 ];
+
+const audiences = [
+  {
+    title: "Arquitectura y desarrollos",
+    description: "Vendé proyectos antes de construirlos.",
+  },
+  {
+    title: "Productos configurables",
+    description: "Mostrá todas las variantes sin fotografiar cada combinación.",
+  },
+  {
+    title: "Mobiliario / cocinas / piscinas / aberturas",
+    description: "Dejá que el cliente configure antes de pedir presupuesto.",
+  },
+  {
+    title: "Hotelería y turismo",
+    description: "Convertí la presentación digital en parte de la experiencia.",
+  },
+  {
+    title: "Marcas premium",
+    description: "Hacé que explorar el producto sea parte de comprarlo.",
+  },
+];
+
+const technologies = ["React", "Next.js", "Three.js", "React Three Fiber", "WebGL", "GLB / glTF"];
 
 export default function Capabilities() {
   return (
     <section className="capabilities" id="capacidades" data-od-id="capacidades">
       <header className="cap-head">
         <span className="label">Capacidades</span>
-        <p>Diseñamos y desarrollamos experiencias digitales donde producto, espacio y tecnología se encuentran.</p>
+        <p>
+          Si es difícil de mostrar, lo hacemos explorable. Si tiene variantes, lo hacemos configurable. Si todavía no existe, lo hacemos visible.
+        </p>
       </header>
       <ol className="cap-list">
         {capabilities.map((capability, index) => (
@@ -33,6 +64,32 @@ export default function Capabilities() {
           </li>
         ))}
       </ol>
+      <div className="cap-engine">
+        <span className="label">FORMA Engine</span>
+        <h2>Un sistema reutilizable para construir configuradores 3D a partir de productos y proyectos reales.</h2>
+        <p>
+          Modelo 3D + partes configurables + variantes + interfaz + web → experiencia lista para integrar.
+        </p>
+        <p>
+          No empezamos cada configurador desde cero. Adaptamos una arquitectura ya probada al producto de cada cliente.
+        </p>
+      </div>
+      <div className="cap-audience">
+        <span className="label">Para quién</span>
+        <ol className="audience-list">
+          {audiences.map((audience, index) => (
+            <li key={audience.title}>
+              <span className="cap-number">{String(index + 1).padStart(2, "0")}</span>
+              <h3>{audience.title}</h3>
+              <p>{audience.description}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div className="cap-technology">
+        <span className="label">Technology</span>
+        <p>{technologies.join(" · ")}</p>
+      </div>
     </section>
   );
 }

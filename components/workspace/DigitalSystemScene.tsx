@@ -13,16 +13,21 @@ export default function DigitalSystemScene({ sceneStyle, active }: DigitalSystem
       style={sceneStyle}
     >
       <div className="spatial-placeholder">
-        <span className="scene-number">04 / 04</span>
-        <span className="spatial-kicker">RA / RV</span>
+        <span className="scene-number">04 / 04 · Experiencias inmersivas</span>
+        <span className="spatial-kicker">RA · RV · Spatial</span>
         <h2 data-od-id="sistema-titulo">
-          Realidad aumentada
-          <br />+<br />
-          Realidad virtual
+          Del navegador
+          <br />
+          al espacio real.
         </h2>
-        <p>Experiencias espaciales que extienden el producto más allá de la pantalla.</p>
+        <p>
+          Llevamos productos y proyectos interactivos a experiencias de Realidad Aumentada y Realidad Virtual.
+        </p>
         <strong>Próximamente</strong>
-        <span className="spatial-meta">AR · VR · Spatial experience</span>
+        <span className="spatial-meta">¿Tenés un proyecto que necesita esto?</span>
+        <a className="contextual-cta dark" href="#contacto" data-service="immersive" data-cursor="Abrir">
+          Hablemos ↗
+        </a>
       </div>
       <a className="scene-action" href="#capacidades" data-od-id="sistema-continuar">
         Capacidades ↓

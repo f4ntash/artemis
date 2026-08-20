@@ -84,13 +84,14 @@ export default function H2OScene({ sceneStyle, active, onSceneLink }: H2OScenePr
       data-od-id="escena-h2o"
       style={sceneStyle}
     >
-      <header className="scene-heading motion-heading h2o-motion-heading">
-        <span className="scene-number">01 / 04</span>
-        <h1 className="motion-title" data-od-id="h2o-titulo">H2O</h1>
-        <span className="kind">Configurador 3D</span>
-      </header>
       <div className="h2o-layout">
         <aside className="h2o-material-detail" aria-live="polite" aria-label="Detalle del material seleccionado">
+          <div className="demo-panel-intro">
+            <span className="scene-number">01 / 04</span>
+            <span className="kind">Showroom digital</span>
+            <h1 data-od-id="h2o-titulo">H2O</h1>
+            <span className="kind">Configurador 3D</span>
+          </div>
           <span className="h2o-detail-group">{activeGroup.label}</span>
           <h2>{activeVariant.label}</h2>
           <p>{activeVariant.description}</p>
@@ -102,9 +103,14 @@ export default function H2OScene({ sceneStyle, active, onSceneLink }: H2OScenePr
               </div>
             ))}
           </dl>
+          <p className="panel-commercial-copy">Tus clientes pueden explorar materiales y terminaciones antes de comprar.</p>
+          <a className="contextual-cta" href="#contacto" data-service="showroom" data-cursor="Abrir">
+            Quiero esto para mi producto ↗
+          </a>
         </aside>
         <div className="h2o-render-column">
           <section
+            id="h2o-three-slot"
             ref={slotRef}
             className="three-slot"
             data-three-slot="h2o-configurator"

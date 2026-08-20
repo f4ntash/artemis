@@ -157,15 +157,6 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
       data-od-id="escena-producto"
       style={sceneStyle}
     >
-      <header className="scene-heading">
-        <span className="scene-number">03 / 04</span>
-        <h2 data-od-id="producto-titulo">
-          Product
-          <br />
-          Configurator
-        </h2>
-        <span className="kind">3D interactivo</span>
-      </header>
       <section
         ref={slotRef}
         className="three-slot"
@@ -192,6 +183,12 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
           {variant === "natural" ? (
             <div className="exterior-config-layout">
               <aside className="exterior-config-detail" aria-live="polite" aria-label="Detalle del material exterior">
+                <div className="demo-panel-intro">
+                  <span className="scene-number">03 / 04</span>
+                  <span className="kind">Preventa interactiva</span>
+                  <h2 data-od-id="producto-titulo">Exterior House</h2>
+                  <span className="kind">Configurador 3D</span>
+                </div>
                 <span className="exterior-config-detail-group">{activeExteriorGroup.label}</span>
                 <h3>{activeExteriorVariant.label}</h3>
                 <p>{activeExteriorVariant.description}</p>
@@ -203,6 +200,10 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
                     </div>
                   ))}
                 </dl>
+                <p className="panel-commercial-copy">Mostrá y configurá el proyecto antes de construirlo.</p>
+                <a className="contextual-cta" href="#contacto" data-service="preventa" data-cursor="Abrir">
+                  Quiero una demo con mi proyecto ↗
+                </a>
               </aside>
               <div className="exterior-render-column">
                 <div className="exterior-render-stage">
@@ -284,9 +285,6 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
             0{index + 1}
           </button>
         ))}
-      </div>
-      <div className="product-summary">
-        <span className="label">Producto · Configuración</span>
       </div>
       <a
         className="scene-action"

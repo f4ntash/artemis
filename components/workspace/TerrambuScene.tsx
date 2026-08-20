@@ -83,11 +83,15 @@ export default function TerrambuScene({ sceneStyle, active, onSceneLink }: Terra
       <div className="digital-project-content" key={activeProject.id}>
         {activeProject.type === "website" ? (
           <>
-            <header className="scene-heading project-scene-heading motion-heading terrambu-motion-heading">
-              <span className="scene-number">02 / DIGITAL EXPERIENCES / WEB</span>
+            <header className="scene-heading project-scene-heading project-context-heading motion-heading terrambu-motion-heading">
+              <span className="scene-number">02 / Experiencia web</span>
               <h2 className="motion-title">{activeProject.title}</h2>
               <span className="kind">{activeProject.subtitle}</span>
               <span className="project-location">{activeProject.location}</span>
+              <p className="project-context-copy">{activeProject.commercialContext}</p>
+              <a className="contextual-cta dark" href="#contacto" data-service="web" data-cursor="Abrir">
+                Quiero una experiencia así ↗
+              </a>
             </header>
             <LiveWebsiteFrame
               title={activeProject.title}
@@ -98,15 +102,15 @@ export default function TerrambuScene({ sceneStyle, active, onSceneLink }: Terra
           </>
         ) : (
           <div className="digital-project-cta">
-            <span className="scene-number">03 / YOUR PROJECT</span>
+            <span className="scene-number">02 / Experiencia web</span>
             <h2>{activeProject.title}</h2>
             <p>
-              Contanos qué querés crear.
+              Contanos qué querés mostrar, vender o hacer explorable.
               <br />
               Nosotros te ayudamos a darle forma.
             </p>
             <a href="#contacto">Hablemos del proyecto ↗</a>
-            <span className="digital-project-cta-meta">Web · 3D · Experiencias interactivas</span>
+            <span className="digital-project-cta-meta">Web · 3D · Producto interactivo</span>
           </div>
         )}
       </div>

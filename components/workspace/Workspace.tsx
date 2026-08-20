@@ -7,6 +7,7 @@ import DigitalSystemScene from "./DigitalSystemScene";
 import H2OScene from "./H2OScene";
 import ProductScene from "./ProductScene";
 import ProjectIndex from "./ProjectIndex";
+import StepTransition from "./StepTransition";
 import TerrambuScene from "./TerrambuScene";
 import { sceneCount } from "./workspaceData";
 
@@ -26,7 +27,9 @@ const dispatchChrome = (detail: { dark?: boolean; compact?: boolean }) => {
 export default function Workspace() {
   const workspaceRef = useRef<HTMLElement>(null);
   const tickingRef = useRef(false);
+  const currentSceneRef = useRef(0);
   const [currentScene, setCurrentScene] = useState(0);
+  const [sceneDirection, setSceneDirection] = useState<"forward" | "backward">("forward");
   const [rawScene, setRawScene] = useState(0);
   const [compact, setCompact] = useState(false);
   const [outside, setOutside] = useState(false);
@@ -70,6 +73,10 @@ export default function Workspace() {
   );
 
   const setScene = useCallback((index: number, raw = index) => {
+    if (index !== currentSceneRef.current) {
+      setSceneDirection(index > currentSceneRef.current ? "forward" : "backward");
+      currentSceneRef.current = index;
+    }
     setCurrentScene(index);
     setRawScene(raw);
     dispatchChrome({ dark: index === 1 || index === 3 });
@@ -189,10 +196,12 @@ export default function Workspace() {
           <span className="axis axis-y" />
           <div className="stage-status label">3D · Web · Sistemas</div>
 
-          <H2OScene sceneStyle={sceneStyle(0)} active={sceneMetrics[0].opacity > 0.12} onSceneLink={goToScene} />
-          <TerrambuScene sceneStyle={sceneStyle(1)} active={sceneMetrics[1].opacity > 0.12} onSceneLink={goToScene} />
-          <ProductScene sceneStyle={sceneStyle(2)} active={sceneMetrics[2].opacity > 0.12} onSceneLink={goToScene} />
-          <DigitalSystemScene sceneStyle={sceneStyle(3)} active={sceneMetrics[3].opacity > 0.12} />
+          <StepTransition step={currentScene} direction={sceneDirection}>
+            <H2OScene sceneStyle={sceneStyle(0)} active={sceneMetrics[0].opacity > 0.12} onSceneLink={goToScene} />
+            <TerrambuScene sceneStyle={sceneStyle(1)} active={sceneMetrics[1].opacity > 0.12} onSceneLink={goToScene} />
+            <ProductScene sceneStyle={sceneStyle(2)} active={sceneMetrics[2].opacity > 0.12} onSceneLink={goToScene} />
+            <DigitalSystemScene sceneStyle={sceneStyle(3)} active={sceneMetrics[3].opacity > 0.12} />
+          </StepTransition>
         </div>
       </section>
     </>
