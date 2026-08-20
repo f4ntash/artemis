@@ -1,7 +1,7 @@
-export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const GITHUB_PAGES_BASE = "/artemis";
 
 export function withBasePath(path: string) {
   const normalized = path.startsWith("/") ? path : `/${path}`;
 
-  return `${BASE_PATH}${normalized}`;
+  return `${GITHUB_PAGES_BASE}${normalized}`;
 }

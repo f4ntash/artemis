@@ -12,7 +12,7 @@ import {
 } from "./exteriorHouseVariants";
 import { withBasePath } from "@/lib/assetPath";
 
-const MODEL_URL = withBasePath("/models/exterior_house.glb");
+const EXTERIOR_HOUSE_MODEL_URL = withBasePath("/models/exterior_house.glb");
 
 // ============================================================
 // EXTERIOR HOUSE CAMERA CONFIG
@@ -52,7 +52,7 @@ const cloneMaterialWithOverrides = (
 };
 
 function ExteriorHouseModel({ variants }: ExteriorHouseModelProps) {
-  const gltf = useGLTF(MODEL_URL);
+  const gltf = useGLTF(EXTERIOR_HOUSE_MODEL_URL);
   const invalidate = useThree((state) => state.invalidate);
   const { scene, center, radius, targetMeshes, variantMaterials } = useMemo(() => {
     const clonedScene = gltf.scene.clone(true);
@@ -182,4 +182,4 @@ export default function ExteriorHouseScene({ variants }: ExteriorHouseModelProps
   );
 }
 
-useGLTF.preload(MODEL_URL);
+useGLTF.preload(EXTERIOR_HOUSE_MODEL_URL);

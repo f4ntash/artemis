@@ -7,7 +7,7 @@ import type { Group, Object3D } from "three";
 import { H2O_VARIANT_GROUPS, type H2OVariantState } from "./h2oVariants";
 import { withBasePath } from "@/lib/assetPath";
 
-const MODEL_URL = withBasePath("/models/preview_house.glb");
+const H2O_MODEL_URL = withBasePath("/models/preview_house.glb");
 const MODEL_ROTATION: [number, number, number] = [0, Math.PI, 0];
 
 type H2OModelProps = {
@@ -20,7 +20,7 @@ export default function H2OModel({ onReady, onModelReady, variants }: H2OModelPr
   const groupRef = useRef<Group>(null);
   const initializedRef = useRef(false);
   const invalidate = useThree((state) => state.invalidate);
-  const gltf = useGLTF(MODEL_URL);
+  const gltf = useGLTF(H2O_MODEL_URL);
   const scene = useMemo(() => gltf.scene.clone(true), [gltf.scene]);
 
   useLayoutEffect(() => {
@@ -54,4 +54,4 @@ export default function H2OModel({ onReady, onModelReady, variants }: H2OModelPr
   );
 }
 
-useGLTF.preload(MODEL_URL);
+useGLTF.preload(H2O_MODEL_URL);
