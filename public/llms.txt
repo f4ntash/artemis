@@ -21,7 +21,7 @@ Corsteno desarrolla experiencias web, configuradores 3D, visualización 3D inter
 
 ## Proyectos
 
-- H2O: https://f4ntash.github.io/corsteno/proyectos/h2o
+- ATLAS: https://f4ntash.github.io/corsteno/proyectos/h2o
 - Exterior House: https://f4ntash.github.io/corsteno/proyectos/exterior-house
 - Terrambú: https://f4ntash.github.io/corsteno/proyectos/terrambu
 - Mapa Punilla: https://f4ntash.github.io/corsteno/proyectos/mapa-punilla

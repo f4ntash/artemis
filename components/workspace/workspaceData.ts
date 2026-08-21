@@ -33,7 +33,7 @@ export const digitalProjects = [
 ] as const;
 
 export const projectScenes = [
-  { label: "01", name: "H2O" },
+  { label: "01", name: "ATLAS" },
   { label: "02", name: "Digital Experiences" },
   { label: "03", name: "Product Configurator" },
   { label: "04", name: "RA / RV" },

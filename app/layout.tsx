@@ -3,6 +3,8 @@ import Analytics from "@/components/analytics/Analytics";
 import { assetUrl, canonicalUrl, homeSeo, site } from "@/lib/seo";
 import "../styles/globals.css";
 
+const HOME_SOCIAL_IMAGE = assetUrl("/og/corsteno-og.webp");
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: homeSeo.title,
@@ -15,13 +17,13 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: site.locale,
     type: "website",
-    images: [{ url: assetUrl(site.defaultImage), alt: "Experiencias web y 3D desarrolladas por Corsteno" }],
+    images: [{ url: HOME_SOCIAL_IMAGE, alt: "Experiencias web y 3D desarrolladas por Corsteno" }],
   },
   twitter: {
     card: "summary_large_image",
     title: homeSeo.title,
     description: homeSeo.description,
-    images: [assetUrl(site.defaultImage)],
+    images: [HOME_SOCIAL_IMAGE],
   },
   verification: process.env.NEXT_PUBLIC_GSC_VERIFICATION
     ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }

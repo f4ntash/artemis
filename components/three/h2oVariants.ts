@@ -124,7 +124,7 @@ export const H2O_VARIANT_GROUPS: H2OVariantGroup[] = [
         id: "a",
         label: "A",
         objectName: "MOBILIARIO_SILLAS_A",
-        description: "Configuración original de sillas para el conjunto de comedor H2O.",
+        description: "Configuración original de sillas para el conjunto de comedor ATLAS.",
         details: [{ label: "Elemento", value: "Sillas" }, { label: "Variante", value: "A" }],
       },
       {

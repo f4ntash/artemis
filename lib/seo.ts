@@ -88,7 +88,7 @@ export const seoPages: SeoPage[] = [
       },
       {
         title: "Proyecto relacionado",
-        body: "H2O muestra cómo un producto puede explorarse con materiales y terminaciones configurables desde el navegador.",
+        body: "ATLAS muestra cómo un producto puede explorarse con materiales y terminaciones configurables desde el navegador.",
       },
     ],
     faqs: [
@@ -99,7 +99,7 @@ export const seoPages: SeoPage[] = [
       { question: "¿Puede conectarse con un e-commerce?", answer: "Puede evaluarse una integración cuando el catálogo, las variantes y el flujo comercial lo requieren." },
     ],
     links: [
-      { label: "Ver proyecto H2O", href: p("/proyectos/h2o") },
+      { label: "Ver proyecto ATLAS", href: p("/proyectos/h2o") },
       { label: "Soluciones para muebles y equipamiento", href: p("/sectores/muebles-equipamiento") },
       { label: "Soluciones para industria", href: p("/sectores/industria") },
     ],
@@ -305,7 +305,7 @@ export const seoPages: SeoPage[] = [
     links: [
       { label: "Configuradores 3D", href: p("/servicios/configuradores-3d") },
       { label: "Industria", href: p("/sectores/industria") },
-      { label: "Ver H2O", href: p("/proyectos/h2o") },
+      { label: "Ver ATLAS", href: p("/proyectos/h2o") },
     ],
   },
   {
@@ -448,12 +448,12 @@ export const seoPages: SeoPage[] = [
     cluster: "3D",
     category: "proyecto",
     intent: "ver ejemplo real de configurador 3D de producto",
-    title: "H2O Configurador 3D | Proyecto Corsteno",
-    description: "Proyecto H2O: configurador 3D interactivo para explorar materiales y terminaciones de producto desde el navegador.",
-    h1: "H2O: configurador 3D interactivo",
+    title: "ATLAS Configurador 3D | Proyecto Corsteno",
+    description: "Proyecto ATLAS: configurador 3D interactivo para explorar materiales y terminaciones de producto desde el navegador.",
+    h1: "ATLAS: configurador 3D interactivo",
     eyebrow: "Proyecto",
-    intro: "H2O muestra cómo un producto puede convertirse en una experiencia configurable, pensada para explorar materiales y terminaciones desde la web.",
-    cta: "Quiero una experiencia como H2O",
+    intro: "ATLAS muestra cómo un producto puede convertirse en una experiencia configurable, pensada para explorar materiales y terminaciones desde la web.",
+    cta: "Quiero una experiencia como ATLAS",
     takeaways: [
       "Configuración de materiales desde navegador.",
       "Interacción 3D con foco comercial.",
@@ -465,7 +465,7 @@ export const seoPages: SeoPage[] = [
       { title: "Servicio relacionado", body: "Se vincula directamente con configuradores 3D y visualización 3D interactiva." },
     ],
     faqs: [
-      { question: "¿H2O es un configurador 3D?", answer: "Sí. Es un ejemplo de experiencia interactiva para explorar materiales y terminaciones." },
+      { question: "¿ATLAS es un configurador 3D?", answer: "Sí. Es un ejemplo de experiencia interactiva para explorar materiales y terminaciones." },
       { question: "¿Puede aplicarse a otros productos?", answer: "Sí. La lógica puede adaptarse a otros productos con variantes reales." },
       { question: "¿Funciona desde navegador?", answer: "Sí. La experiencia está pensada para web." },
     ],

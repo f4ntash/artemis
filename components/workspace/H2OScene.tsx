@@ -89,7 +89,7 @@ export default function H2OScene({ sceneStyle, active, onSceneLink }: H2OScenePr
           <div className="demo-panel-intro">
             <span className="scene-number">01 / 04</span>
             <span className="kind">Showroom digital</span>
-            <h2 data-od-id="h2o-titulo">H2O</h2>
+            <h2 data-od-id="h2o-titulo">ATLAS</h2>
             <span className="kind">Configurador de producto</span>
           </div>
           <span className="h2o-detail-group">{activeGroup.label}</span>
@@ -116,13 +116,13 @@ export default function H2OScene({ sceneStyle, active, onSceneLink }: H2OScenePr
             data-three-slot="h2o-configurator"
             data-render-state={renderState}
             data-engaged={engaged ? "true" : undefined}
-            aria-label="Espacio preparado para el configurador 3D H2O"
+            aria-label="Espacio preparado para el configurador 3D ATLAS"
             data-od-id="h2o-three-slot"
           >
             <div
               className="canvas-mount"
               tabIndex={0}
-              aria-label="Arrastrá para explorar H2O"
+              aria-label="Arrastrá para explorar ATLAS"
               data-canvas-mount="h2o-configurator"
               data-cursor="ROTATE"
               data-dragging={dragging ? "true" : "false"}
@@ -143,8 +143,8 @@ export default function H2OScene({ sceneStyle, active, onSceneLink }: H2OScenePr
           </section>
           <span className="drag-hint">Arrastrar · Rotar</span>
         </div>
-        <aside className="h2o-control-panel" aria-label="Controles H2O">
-          <div className="h2o-variant-panel" aria-label="Variantes H2O">
+        <aside className="h2o-control-panel" aria-label="Controles ATLAS">
+          <div className="h2o-variant-panel" aria-label="Variantes ATLAS">
             {H2O_VARIANT_GROUPS.map((group) => (
               <div className="h2o-variant-group" key={group.id}>
                 <span className="h2o-variant-label">{group.label}</span>
@@ -169,7 +169,7 @@ export default function H2OScene({ sceneStyle, active, onSceneLink }: H2OScenePr
             <button
               className="quiet-button reset-button"
               type="button"
-              aria-label="Reiniciar H2O"
+              aria-label="Reiniciar ATLAS"
               data-od-id="h2o-reiniciar"
               onClick={resetExperience}
             >

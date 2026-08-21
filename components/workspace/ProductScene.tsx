@@ -271,21 +271,6 @@ export default function ProductScene({ sceneStyle, active, onSceneLink }: Produc
           {variant !== "natural" ? slotControls : null}
         </div>
       </section>
-      <div className="variant-strip" role="group" aria-label="Variantes del producto">
-        {(["natural", "light", "dark"] as const).map((item, index) => (
-          <button
-            key={item}
-            className="variant-button"
-            type="button"
-            aria-pressed={variant === item}
-            data-variant={item}
-            data-od-id={`producto-variante-0${index + 1}`}
-            onClick={() => setVariant(item)}
-          >
-            0{index + 1}
-          </button>
-        ))}
-      </div>
       <a
         className="scene-action"
         href="#system"

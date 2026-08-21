@@ -1,9 +1,35 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { withBasePath } from "@/lib/assetPath";
 
 const TERRAMBU_IMAGE_URL = withBasePath("/projects/terrambu-hotel-web.webp");
 const MAPA_PUNILLA_IMAGE_URL = withBasePath("/projects/mapa-punilla-web.webp");
+const SHOWROOM_3D_IMAGE_URL = withBasePath("/projects/corsteno-showroom-3d.webp");
+
+const featuredProjects = [
+  {
+    id: "terrambu",
+    title: "Terrambú",
+    category: "Experiencia web",
+    image: TERRAMBU_IMAGE_URL,
+    alt: "Sitio web para hotel boutique Terrambú desarrollado por Corsteno",
+  },
+  {
+    id: "mapa-punilla",
+    title: "Mapa Punilla",
+    category: "Plataforma interactiva",
+    image: MAPA_PUNILLA_IMAGE_URL,
+    alt: "Plataforma web Mapa Punilla desarrollada por Corsteno",
+  },
+  {
+    id: "atlas",
+    title: "ATLAS",
+    category: "Showroom digital",
+    image: SHOWROOM_3D_IMAGE_URL,
+    alt: "Configurador 3D interactivo ATLAS desarrollado por Corsteno",
+  },
+];
 
 const uses = [
   {
@@ -82,6 +108,14 @@ const industries = [
 ];
 
 export default function CommercialIntro() {
+  const [featuredIndex, setFeaturedIndex] = useState(0);
+  const featuredProject = featuredProjects[featuredIndex];
+  const secondaryProjects = featuredProjects.filter((_, index) => index !== featuredIndex);
+
+  useEffect(() => {
+    setFeaturedIndex(Math.floor(Math.random() * featuredProjects.length));
+  }, []);
+
   const openShowroomScene = (scene: number) => {
     window.dispatchEvent(new CustomEvent("forma3d:showroom-scene", { detail: { scene } }));
   };
@@ -119,17 +153,15 @@ export default function CommercialIntro() {
         </div>
         <div className="commercial-hero-visual" aria-label="Proyectos de Corsteno">
           <figure className="hero-project hero-project-primary">
-            <img src={TERRAMBU_IMAGE_URL} alt="Sitio web para hotel boutique Terrambú desarrollado por Corsteno" />
-            <figcaption>Experiencia web · Terrambú</figcaption>
+            <img src={featuredProject.image} alt={featuredProject.alt} />
+            <figcaption>{featuredProject.category} · {featuredProject.title}</figcaption>
           </figure>
-          <figure className="hero-project hero-project-secondary">
-            <img src={MAPA_PUNILLA_IMAGE_URL} alt="Plataforma web Mapa Punilla desarrollada por Corsteno" />
-            <figcaption>Plataforma interactiva · Mapa Punilla</figcaption>
-          </figure>
-          <div className="hero-visual-note">
-            <span>Showroom digital</span>
-            <strong>Proyectos reales, configurables y navegables.</strong>
-          </div>
+          {secondaryProjects.map((project) => (
+            <figure className="hero-project hero-project-secondary" key={project.id}>
+              <img src={project.image} alt={project.alt} />
+              <figcaption>{project.category} · {project.title}</figcaption>
+            </figure>
+          ))}
         </div>
       </section>
 

@@ -22,7 +22,7 @@ const EXTERIOR_HOUSE_CAMERA_CONFIG = {
   direction: [4.4, 1.5, 4] as [number, number, number],
   target: [0, 0, 0] as [number, number, number],
   fov: 36,
-  fitPadding: 1.06,
+  fitPadding: 0.82,
   minDistanceFactor: 0,
   maxDistanceFactor: 1.8,
   azimuthRange: THREE.MathUtils.degToRad(60),

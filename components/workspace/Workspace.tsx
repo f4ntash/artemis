@@ -200,7 +200,7 @@ export default function Workspace() {
               {showroomCategory === "3d" && (
                 <>
                   <button type="button" aria-current={currentScene === 0 ? "true" : undefined} onClick={() => goToScene(0)}>
-                    01 H2O
+                    01 ATLAS
                   </button>
                   <button type="button" aria-current={currentScene === 2 ? "true" : undefined} onClick={() => goToScene(2)}>
                     02 Exterior House
