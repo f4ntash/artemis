@@ -1,4 +1,4 @@
-export type ExteriorHouseGroupId = "poolLining" | "exteriorFloor" | "poolEdge" | "fountain";
+export type ExteriorHouseGroupId = "poolLining" | "exteriorFloor" | "poolEdge" | "waterfallFinish";
 
 export type ExteriorHouseVariantState = Record<ExteriorHouseGroupId, string>;
 
@@ -11,8 +11,10 @@ export type ExteriorHouseMaterialOverrides = {
 export type ExteriorHouseVariantGroup = {
   id: ExteriorHouseGroupId;
   label: string;
+  selectionMode: "mesh" | "material";
   targetMeshName: string;
   sourceMeshNames: string[];
+  preserveChildMeshNames?: string[];
   variants: Array<{
     id: string;
     label: string;
@@ -27,32 +29,29 @@ export const EXTERIOR_HOUSE_VARIANT_GROUPS: ExteriorHouseVariantGroup[] = [
   {
     id: "poolLining",
     label: "Vaso piscina",
-    targetMeshName: "1_piscina_pequena_base_01_006",
-    sourceMeshNames: [
-      "1_piscina_pequena_base_01_006",
-      "1_piscina_pequena_base_01_009",
-      "1_piscina_pequena_base_01_012",
-    ],
+    selectionMode: "mesh",
+    targetMeshName: "Pileta_Interior_Aqua",
+    sourceMeshNames: ["Pileta_Interior_Aqua", "Pileta_Interior_Dark", "Pileta_Interior_Jade"],
     variants: [
       {
         id: "default",
         label: "Default",
-        sourceMeshName: "1_piscina_pequena_base_01_006",
-        description: "Revestimiento Barlavento original del vaso, con una lectura mineral clara y continua.",
-        details: [{ label: "Carácter", value: "Mineral" }, { label: "Aplicación", value: "Vaso de piscina" }],
+        sourceMeshName: "Pileta_Interior_Aqua",
+        description: "Revestimiento original del vaso con terminación azul y relieve visible.",
+        details: [{ label: "Carácter", value: "Acuático" }, { label: "Aplicación", value: "Vaso de piscina" }],
       },
       {
         id: "terracotta",
         label: "Terracota",
-        sourceMeshName: "1_piscina_pequena_base_01_009",
-        description: "Alternativa texturada de tono cálido para enfatizar la geometría interior de la piscina.",
-        details: [{ label: "Carácter", value: "Cálido" }, { label: "Acabado", value: "Mate" }],
+        sourceMeshName: "Pileta_Interior_Dark",
+        description: "Alternativa texturada de tono terroso para el interior de la piscina.",
+        details: [{ label: "Carácter", value: "Cálido" }, { label: "Aplicación", value: "Vaso de piscina" }],
       },
       {
         id: "greenStone",
         label: "Piedra verde",
-        sourceMeshName: "1_piscina_pequena_base_01_012",
-        description: "Piedra verdosa de aspecto natural que aporta profundidad y una presencia más orgánica.",
+        sourceMeshName: "Pileta_Interior_Jade",
+        description: "Terminación de piedra verde con una lectura natural y profunda.",
         details: [{ label: "Carácter", value: "Natural" }, { label: "Aplicación", value: "Vaso de piscina" }],
       },
     ],
@@ -60,91 +59,97 @@ export const EXTERIOR_HOUSE_VARIANT_GROUPS: ExteriorHouseVariantGroup[] = [
   {
     id: "exteriorFloor",
     label: "Piso exterior",
-    targetMeshName: "Plane001",
-    sourceMeshNames: ["Plane001", "Plane002", "Plane003"],
+    selectionMode: "mesh",
+    targetMeshName: "Pielta_Piso_Exterior_Colorado",
+    sourceMeshNames: [
+      "Pielta_Piso_Exterior_Colorado",
+      "Pielta_Piso_Exterior_Madera",
+      "Pileta_Piso_Exterior_Blanco",
+    ],
     variants: [
       {
         id: "default",
         label: "Default",
-        sourceMeshName: "Plane001",
-        description: "Cerámica ibérica original, elegida como base cálida para el plano exterior del proyecto.",
+        sourceMeshName: "Pielta_Piso_Exterior_Colorado",
+        description: "Cerámica exterior original de tono cálido y textura continua.",
         details: [{ label: "Carácter", value: "Cálido" }, { label: "Aplicación", value: "Piso exterior" }],
       },
       {
-        id: "cedar",
-        label: "Cedro",
-        sourceMeshName: "Plane002",
-        description: "Tablas de cedro con veta visible para una atmósfera exterior más cálida y natural.",
-        details: [{ label: "Superficie", value: "Madera" }, { label: "Carácter", value: "Natural" }],
+        id: "wood",
+        label: "Madera",
+        sourceMeshName: "Pielta_Piso_Exterior_Madera",
+        description: "Entablonado de madera para una terminación exterior más natural.",
+        details: [{ label: "Superficie", value: "Madera" }, { label: "Aplicación", value: "Piso exterior" }],
       },
       {
-        id: "lightPlank",
+        id: "whitePlanks",
         label: "Tabla clara",
-        sourceMeshName: "Plane003",
-        description: "Entablonado claro que suaviza el contraste y amplía visualmente el perímetro de la piscina.",
-        details: [{ label: "Tono", value: "Claro" }, { label: "Acabado", value: "Mate" }],
+        sourceMeshName: "Pileta_Piso_Exterior_Blanco",
+        description: "Tablas claras que reducen el contraste alrededor de la piscina.",
+        details: [{ label: "Tono", value: "Claro" }, { label: "Aplicación", value: "Piso exterior" }],
       },
     ],
   },
   {
     id: "poolEdge",
     label: "Borde piscina",
-    targetMeshName: "1_piscina_pequena_base_01_025",
-    sourceMeshNames: ["1_piscina_pequena_base_01_025"],
+    selectionMode: "material",
+    targetMeshName: "Pielta_Borde",
+    sourceMeshNames: ["Pielta_Borde"],
     variants: [
       {
         id: "default",
         label: "Default",
-        sourceMeshName: "1_piscina_pequena_base_01_025",
-        description: "Porcelanato de concreto satinado original que define el perímetro inmediato de la piscina.",
+        sourceMeshName: "Pielta_Borde",
+        description: "Porcelanato de concreto satinado original del borde de piscina.",
         details: [{ label: "Carácter", value: "Neutro" }, { label: "Aplicación", value: "Borde de piscina" }],
       },
       {
         id: "sand",
         label: "Arena",
-        sourceMeshName: "1_piscina_pequena_base_01_025",
+        sourceMeshName: "Pielta_Borde",
         materialOverrides: { color: "#d3c2a5", roughness: 0.94, metalness: 0 },
-        description: "Tinte arena sobre la textura original para una transición más cálida con el piso exterior.",
-        details: [{ label: "Tono", value: "Arena" }, { label: "Acabado", value: "Mate" }],
-      },
-      {
-        id: "gray",
-        label: "Gris",
-        sourceMeshName: "1_piscina_pequena_base_01_025",
-        materialOverrides: { color: "#85898a", roughness: 0.9, metalness: 0 },
-        description: "Tono gris mineral que refuerza una lectura sobria del borde sin perder su textura.",
-        details: [{ label: "Tono", value: "Gris" }, { label: "Carácter", value: "Sobrio" }],
-      },
-    ],
-  },
-  {
-    id: "fountain",
-    label: "Fuente",
-    targetMeshName: "Fountain_and_fire003",
-    sourceMeshNames: ["Fountain_and_fire003"],
-    variants: [
-      {
-        id: "default",
-        label: "Default",
-        sourceMeshName: "Fountain_and_fire003",
-        description: "Piedra original de la fuente, integrada cromáticamente con el conjunto de la piscina.",
-        details: [{ label: "Carácter", value: "Mineral" }, { label: "Aplicación", value: "Fuente exterior" }],
-      },
-      {
-        id: "light",
-        label: "Claro",
-        sourceMeshName: "Fountain_and_fire003",
-        materialOverrides: { color: "#d9d4c9", roughness: 0.96, metalness: 0 },
-        description: "Piedra aclarada que reduce el contraste y mantiene visible el mapa original de superficie.",
-        details: [{ label: "Tono", value: "Claro" }, { label: "Acabado", value: "Mate" }],
+        description: "Tinte arena aplicado sobre los mapas originales del porcelanato.",
+        details: [{ label: "Tono", value: "Arena" }, { label: "Aplicación", value: "Borde de piscina" }],
       },
       {
         id: "graphite",
         label: "Grafito",
-        sourceMeshName: "Fountain_and_fire003",
-        materialOverrides: { color: "#55585a", roughness: 0.9, metalness: 0 },
-        description: "Piedra grafito de presencia profunda para destacar el volumen compacto de la fuente.",
-        details: [{ label: "Tono", value: "Grafito" }, { label: "Carácter", value: "Profundo" }],
+        sourceMeshName: "Pielta_Borde",
+        materialOverrides: { color: "#626566", roughness: 0.9, metalness: 0 },
+        description: "Tinte grafito que conserva la textura original de la superficie.",
+        details: [{ label: "Tono", value: "Grafito" }, { label: "Aplicación", value: "Borde de piscina" }],
+      },
+    ],
+  },
+  {
+    id: "waterfallFinish",
+    label: "Acabado cascada",
+    selectionMode: "mesh",
+    targetMeshName: "Cascada_Piedra",
+    sourceMeshNames: ["Cascada_Piedra", "Cascada_PiedraBlanca", "Cascada_Marmol"],
+    preserveChildMeshNames: ["fonte_.008"],
+    variants: [
+      {
+        id: "default",
+        label: "Default",
+        sourceMeshName: "Cascada_Piedra",
+        description: "Piedra original de la cascada con una terminación exterior natural.",
+        details: [{ label: "Carácter", value: "Mineral" }, { label: "Aplicación", value: "Cascada" }],
+      },
+      {
+        id: "whiteStone",
+        label: "Piedra clara",
+        sourceMeshName: "Cascada_PiedraBlanca",
+        description: "Alternativa de piedra clara reutilizada desde el modelo original.",
+        details: [{ label: "Tono", value: "Claro" }, { label: "Aplicación", value: "Cascada" }],
+      },
+      {
+        id: "marble",
+        label: "Mármol",
+        sourceMeshName: "Cascada_Marmol",
+        description: "Acabado marmolado incluido en el modelo para la pieza de cascada.",
+        details: [{ label: "Carácter", value: "Marmolado" }, { label: "Aplicación", value: "Cascada" }],
       },
     ],
   },
@@ -154,6 +159,5 @@ export const DEFAULT_EXTERIOR_HOUSE_VARIANTS: ExteriorHouseVariantState = {
   poolLining: "default",
   exteriorFloor: "default",
   poolEdge: "default",
-  fountain: "default",
+  waterfallFinish: "default",
 };
-

@@ -54,7 +54,7 @@ const cloneMaterialWithOverrides = (
 function ExteriorHouseModel({ variants }: ExteriorHouseModelProps) {
   const gltf = useGLTF(EXTERIOR_HOUSE_MODEL_URL);
   const invalidate = useThree((state) => state.invalidate);
-  const { scene, center, radius, targetMeshes, variantMaterials } = useMemo(() => {
+  const { scene, center, radius, meshes, targetMeshes, variantMaterials } = useMemo(() => {
     const clonedScene = gltf.scene.clone(true);
     clonedScene.updateMatrixWorld(true);
 
@@ -71,10 +71,17 @@ function ExteriorHouseModel({ variants }: ExteriorHouseModelProps) {
       if (!target) return;
       targets.set(group.id, target);
 
+      group.preserveChildMeshNames?.forEach((meshName) => {
+        const child = meshes.get(meshName);
+        if (child) clonedScene.attach(child);
+      });
+
       group.sourceMeshNames.forEach((meshName) => {
         const mesh = meshes.get(meshName);
         if (mesh) mesh.visible = meshName === group.targetMeshName;
       });
+
+      if (group.selectionMode === "mesh") return;
 
       group.variants.forEach((variant) => {
         const source = meshes.get(variant.sourceMeshName);
@@ -98,6 +105,7 @@ function ExteriorHouseModel({ variants }: ExteriorHouseModelProps) {
       scene: clonedScene,
       center: modelCenter,
       radius: sphere.radius,
+      meshes,
       targetMeshes: targets,
       variantMaterials: materials,
     };
@@ -105,13 +113,22 @@ function ExteriorHouseModel({ variants }: ExteriorHouseModelProps) {
 
   useEffect(() => {
     EXTERIOR_HOUSE_VARIANT_GROUPS.forEach((group) => {
+      const selectedVariant = group.variants.find((variant) => variant.id === variants[group.id]);
+      if (group.selectionMode === "mesh") {
+        group.sourceMeshNames.forEach((meshName) => {
+          const mesh = meshes.get(meshName);
+          if (mesh) mesh.visible = meshName === selectedVariant?.sourceMeshName;
+        });
+        return;
+      }
+
       const target = targetMeshes.get(group.id);
       const material = variantMaterials.get(`${group.id}:${variants[group.id]}`);
       if (!target || !material) return;
       target.material = material;
     });
     invalidate();
-  }, [invalidate, targetMeshes, variantMaterials, variants]);
+  }, [invalidate, meshes, targetMeshes, variantMaterials, variants]);
 
   return (
     <>

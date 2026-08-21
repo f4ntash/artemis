@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Analytics from "@/components/analytics/Analytics";
 import { assetUrl, canonicalUrl, homeSeo, site } from "@/lib/seo";
+import favicon from "./favicon.icon.webp";
 import "../styles/globals.css";
 
 const HOME_SOCIAL_IMAGE = assetUrl("/og/corsteno-og.webp");
@@ -9,6 +10,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: homeSeo.title,
   description: homeSeo.description,
+  icons: {
+    icon: [{ url: favicon.src, type: "image/webp", sizes: "1024x1024" }],
+  },
   alternates: { canonical: canonicalUrl("/") },
   openGraph: {
     title: homeSeo.title,
