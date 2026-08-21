@@ -1,13 +1,22 @@
 import type { Metadata } from "next";
 
 export const site = {
-  name: "ARTEMIS",
-  basePath: "/artemis",
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://matu.github.io/artemis").replace(/\/$/, ""),
+  name: "Corsteno",
+  basePath: "/corsteno",
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://f4ntash.github.io/corsteno").replace(/\/$/, ""),
   locale: "es_AR",
   defaultImage: "/projects/terrambu-hotel-web.webp",
   contactEmail: "hola@forma3d.com",
 };
+
+const businessId = `${site.url}/#business`;
+const serviceCatalog = [
+  "Configuradores 3D interactivos",
+  "Visualización 3D",
+  "Desarrollo web interactivo",
+  "Realidad aumentada",
+  "Realidad virtual",
+];
 
 export type SeoLink = {
   label: string;
@@ -44,7 +53,7 @@ export type SeoPage = {
 };
 
 const p = (path: string) => `${site.basePath}${path}`;
-export const canonicalUrl = (path: string) => `${site.url}${path === "/" ? "/" : `${path}/`}`;
+export const canonicalUrl = (path: string) => `${site.url}${path === "/" || path.includes(".") ? path : `${path}/`}`;
 export const assetUrl = (path: string) => `${site.url}${path}`;
 
 export const seoPages: SeoPage[] = [
@@ -54,7 +63,7 @@ export const seoPages: SeoPage[] = [
     cluster: "3D",
     category: "servicio",
     intent: "contratar desarrollo de configuradores 3D de productos",
-    title: "Configuradores 3D de Productos | ARTEMIS",
+    title: "Configuradores 3D de Productos | Corsteno",
     description: "Desarrollo de configuradores 3D para empresas que necesitan mostrar productos con materiales, colores y variantes desde la web.",
     h1: "Configuradores 3D de productos para empresas",
     eyebrow: "Servicio",
@@ -101,7 +110,7 @@ export const seoPages: SeoPage[] = [
     cluster: "3D",
     category: "servicio",
     intent: "contratar visualización 3D interactiva para productos y proyectos",
-    title: "Visualización 3D Interactiva para Empresas | ARTEMIS",
+    title: "Visualización 3D Interactiva para Empresas | Corsteno",
     description: "Visualización 3D interactiva para presentar productos, espacios y proyectos de forma clara antes de fabricarlos o construirlos.",
     h1: "Visualización 3D interactiva para productos y proyectos",
     eyebrow: "Servicio",
@@ -136,7 +145,7 @@ export const seoPages: SeoPage[] = [
     cluster: "WEB",
     category: "servicio",
     intent: "contratar desarrollo web profesional orientado a negocio",
-    title: "Desarrollo Web para Empresas | ARTEMIS",
+    title: "Desarrollo Web para Empresas | Corsteno",
     description: "Desarrollo web interactivo para empresas que necesitan presentar servicios, productos o experiencias con claridad y foco comercial.",
     h1: "Desarrollo web interactivo para empresas",
     eyebrow: "Servicio",
@@ -156,7 +165,7 @@ export const seoPages: SeoPage[] = [
     faqs: [
       { question: "¿Desarrollan sitios web completos?", answer: "Sí. El alcance puede ir desde una landing hasta una experiencia web más compleja, según el objetivo del proyecto." },
       { question: "¿Puede integrarse contenido interactivo?", answer: "Sí. La web puede incorporar mapas, iframes, visualización 3D o módulos interactivos cuando aportan claridad." },
-      { question: "¿Trabajan con empresas fuera de Córdoba?", answer: "Sí. ARTEMIS puede trabajar de forma remota con empresas de Argentina y otros mercados." },
+      { question: "¿Trabajan con empresas fuera de Córdoba?", answer: "Sí. Corsteno puede trabajar de forma remota con empresas de Argentina y otros mercados." },
       { question: "¿La web puede orientarse a conversión?", answer: "Sí. Se priorizan mensajes claros, CTAs, estructura semántica y recorridos que ayuden al usuario a consultar." },
     ],
     links: [
@@ -165,7 +174,7 @@ export const seoPages: SeoPage[] = [
       { label: "Hotelería y turismo", href: p("/sectores/hoteleria-turismo") },
     ],
     image: "/projects/terrambu-hotel-web.webp",
-    imageAlt: "Experiencia web para hotel boutique Terrambú desarrollada por ARTEMIS",
+    imageAlt: "Experiencia web para hotel boutique Terrambú desarrollada por Corsteno",
   },
   {
     slug: "realidad-aumentada",
@@ -173,7 +182,7 @@ export const seoPages: SeoPage[] = [
     cluster: "INMERSIVO",
     category: "servicio",
     intent: "evaluar realidad aumentada para visualizar productos y espacios",
-    title: "Realidad Aumentada para Productos y Espacios | ARTEMIS",
+    title: "Realidad Aumentada para Productos y Espacios | Corsteno",
     description: "Experiencias de realidad aumentada para visualizar productos, espacios y proyectos en contexto real desde dispositivos compatibles.",
     h1: "Realidad aumentada para productos y espacios",
     eyebrow: "Servicio",
@@ -206,7 +215,7 @@ export const seoPages: SeoPage[] = [
     cluster: "INMERSIVO",
     category: "servicio",
     intent: "evaluar realidad virtual para presentar proyectos y espacios",
-    title: "Realidad Virtual para Proyectos y Showrooms | ARTEMIS",
+    title: "Realidad Virtual para Proyectos y Showrooms | Corsteno",
     description: "Experiencias de realidad virtual para presentar espacios, productos y proyectos en entornos inmersivos orientados a negocio.",
     h1: "Realidad virtual para proyectos y showrooms",
     eyebrow: "Servicio",
@@ -239,7 +248,7 @@ export const seoPages: SeoPage[] = [
     cluster: "3D",
     category: "sector",
     intent: "visualización 3D interactiva para arquitectura y construcción",
-    title: "Visualización 3D para Arquitectura y Construcción | ARTEMIS",
+    title: "Visualización 3D para Arquitectura y Construcción | Corsteno",
     description: "Soluciones interactivas para arquitectura y construcción: visualizar proyectos, terminaciones y espacios antes de construir.",
     h1: "Visualización digital para arquitectura y construcción",
     eyebrow: "Sector",
@@ -272,7 +281,7 @@ export const seoPages: SeoPage[] = [
     cluster: "3D",
     category: "sector",
     intent: "configuradores 3D para muebles y equipamiento",
-    title: "Configuradores 3D para Muebles y Equipamiento | ARTEMIS",
+    title: "Configuradores 3D para Muebles y Equipamiento | Corsteno",
     description: "Configuradores 3D para fabricantes de muebles y equipamiento con materiales, colores y componentes personalizables.",
     h1: "Configuradores 3D para muebles y equipamiento",
     eyebrow: "Sector",
@@ -305,7 +314,7 @@ export const seoPages: SeoPage[] = [
     cluster: "3D",
     category: "sector",
     intent: "visualización 3D y configuración para piscinas y exteriores",
-    title: "Visualización 3D para Piscinas y Exteriores | ARTEMIS",
+    title: "Visualización 3D para Piscinas y Exteriores | Corsteno",
     description: "Visualización y configuración 3D para piscinas, exteriores y terminaciones orientadas a preventa y presentación comercial.",
     h1: "Visualización 3D para piscinas y exteriores",
     eyebrow: "Sector",
@@ -338,7 +347,7 @@ export const seoPages: SeoPage[] = [
     cluster: "3D",
     category: "sector",
     intent: "configuradores y visualización digital de productos industriales",
-    title: "Visualización Digital para Industria | ARTEMIS",
+    title: "Visualización Digital para Industria | Corsteno",
     description: "Configuradores y visualización digital para productos industriales, técnicos o configurables que necesitan explicación clara.",
     h1: "Visualización digital para productos industriales",
     eyebrow: "Sector",
@@ -371,7 +380,7 @@ export const seoPages: SeoPage[] = [
     cluster: "INMERSIVO",
     category: "sector",
     intent: "presentación interactiva para desarrollos inmobiliarios",
-    title: "Experiencias Interactivas para Real Estate | ARTEMIS",
+    title: "Experiencias Interactivas para Real Estate | Corsteno",
     description: "Experiencias web, 3D y potencialmente inmersivas para presentar desarrollos inmobiliarios antes de su finalización.",
     h1: "Experiencias interactivas para real estate",
     eyebrow: "Sector",
@@ -404,7 +413,7 @@ export const seoPages: SeoPage[] = [
     cluster: "WEB",
     category: "sector",
     intent: "experiencias web para hotelería y turismo",
-    title: "Experiencias Web para Hotelería y Turismo | ARTEMIS",
+    title: "Experiencias Web para Hotelería y Turismo | Corsteno",
     description: "Experiencias web para hotelería y turismo orientadas a comunicar mejor lugares, recorridos, servicios y propuestas.",
     h1: "Experiencias web para hotelería y turismo",
     eyebrow: "Sector",
@@ -431,7 +440,7 @@ export const seoPages: SeoPage[] = [
       { label: "Ver Mapa Punilla", href: p("/proyectos/mapa-punilla") },
     ],
     image: "/projects/terrambu-hotel-web.webp",
-    imageAlt: "Sitio web interactivo para hotelería y turismo desarrollado por ARTEMIS",
+    imageAlt: "Sitio web interactivo para hotelería y turismo desarrollado por Corsteno",
   },
   {
     slug: "h2o",
@@ -439,7 +448,7 @@ export const seoPages: SeoPage[] = [
     cluster: "3D",
     category: "proyecto",
     intent: "ver ejemplo real de configurador 3D de producto",
-    title: "H2O Configurador 3D | Proyecto ARTEMIS",
+    title: "H2O Configurador 3D | Proyecto Corsteno",
     description: "Proyecto H2O: configurador 3D interactivo para explorar materiales y terminaciones de producto desde el navegador.",
     h1: "H2O: configurador 3D interactivo",
     eyebrow: "Proyecto",
@@ -472,7 +481,7 @@ export const seoPages: SeoPage[] = [
     cluster: "3D",
     category: "proyecto",
     intent: "ver ejemplo de visualización 3D arquitectónica interactiva",
-    title: "Exterior House Visualización 3D | Proyecto ARTEMIS",
+    title: "Exterior House Visualización 3D | Proyecto Corsteno",
     description: "Exterior House: visualización 3D interactiva para presentar materiales y terminaciones de un proyecto exterior.",
     h1: "Exterior House: visualización 3D de exteriores",
     eyebrow: "Proyecto",
@@ -505,7 +514,7 @@ export const seoPages: SeoPage[] = [
     cluster: "WEB",
     category: "proyecto",
     intent: "ver ejemplo real de experiencia web para hotelería",
-    title: "Terrambú Experiencia Web | Proyecto ARTEMIS",
+    title: "Terrambú Experiencia Web | Proyecto Corsteno",
     description: "Terrambú: experiencia web para comunicar un hotel boutique, su entorno y propuesta antes de la visita.",
     h1: "Terrambú: experiencia web para hotelería",
     eyebrow: "Proyecto",
@@ -532,7 +541,7 @@ export const seoPages: SeoPage[] = [
       { label: "Ver Mapa Punilla", href: p("/proyectos/mapa-punilla") },
     ],
     image: "/projects/terrambu-hotel-web.webp",
-    imageAlt: "Página web de Terrambú, hotel boutique, desarrollada por ARTEMIS",
+    imageAlt: "Página web de Terrambú, hotel boutique, desarrollada por Corsteno",
   },
   {
     slug: "mapa-punilla",
@@ -540,7 +549,7 @@ export const seoPages: SeoPage[] = [
     cluster: "WEB",
     category: "proyecto",
     intent: "ver ejemplo de plataforma web territorial y turística",
-    title: "Mapa Punilla Plataforma Web | Proyecto ARTEMIS",
+    title: "Mapa Punilla Plataforma Web | Proyecto Corsteno",
     description: "Mapa Punilla: plataforma web que organiza información territorial y turística en una experiencia navegable.",
     h1: "Mapa Punilla: plataforma web territorial",
     eyebrow: "Proyecto",
@@ -567,7 +576,7 @@ export const seoPages: SeoPage[] = [
       { label: "Ver Terrambú", href: p("/proyectos/terrambu") },
     ],
     image: "/projects/mapa-punilla-web.webp",
-    imageAlt: "Plataforma web Mapa Punilla desarrollada por ARTEMIS",
+    imageAlt: "Plataforma web Mapa Punilla desarrollada por Corsteno",
   },
 ];
 
@@ -579,8 +588,8 @@ export const indexablePages = seoPages;
 export const homeSeo = {
   path: "/",
   intent: "empresa que desarrolla experiencias digitales, web y 3D para empresas",
-  title: "ARTEMIS | Experiencias Web y 3D para Empresas",
-  description: "ARTEMIS desarrolla configuradores 3D, visualización interactiva y experiencias web para empresas que necesitan mostrar mejor sus productos.",
+  title: "Corsteno | Experiencias Web y 3D para Empresas",
+  description: "Corsteno desarrolla configuradores 3D, visualización interactiva y experiencias web para empresas que necesitan mostrar mejor sus productos.",
   h1: "Hacemos que tus productos se puedan ver, probar y entender antes de comprarlos.",
 };
 
@@ -602,7 +611,7 @@ export function pageMetadata(page: Pick<SeoPage, "title" | "description" | "path
       siteName: site.name,
       locale: site.locale,
       type: "website",
-      images: [{ url: image, alt: page.imageAlt ?? "Experiencia digital interactiva desarrollada por ARTEMIS" }],
+      images: [{ url: image, alt: page.imageAlt ?? "Experiencia digital interactiva desarrollada por Corsteno" }],
     },
     twitter: {
       card: "summary_large_image",
@@ -616,23 +625,34 @@ export function pageMetadata(page: Pick<SeoPage, "title" | "description" | "path
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: site.name,
-    url: site.url,
-    areaServed: ["Argentina", "Córdoba", "Remoto"],
-    serviceType: [
-      "Configuradores 3D interactivos",
-      "Visualización 3D",
-      "Desarrollo web interactivo",
-      "Realidad aumentada",
-      "Realidad virtual",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": businessId,
+        name: site.name,
+        url: site.url,
+        areaServed: ["Argentina", "Córdoba", "Remoto"],
+        contactPoint: {
+          "@type": "ContactPoint",
+          email: site.contactEmail,
+          contactType: "sales",
+          availableLanguage: ["Spanish"],
+        },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Servicios Corsteno",
+          itemListElement: serviceCatalog.map((serviceName) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: serviceName,
+              provider: { "@id": businessId },
+              areaServed: ["Argentina", "Córdoba", "Remoto"],
+            },
+          })),
+        },
+      },
     ],
-    contactPoint: {
-      "@type": "ContactPoint",
-      email: site.contactEmail,
-      contactType: "sales",
-      availableLanguage: ["Spanish"],
-    },
   };
 }
 
@@ -643,9 +663,7 @@ export function serviceJsonLd(page: SeoPage) {
     name: page.h1,
     description: page.description,
     provider: {
-      "@type": "Organization",
-      name: site.name,
-      url: site.url,
+      "@id": businessId,
     },
     areaServed: ["Argentina", "Córdoba", "Remoto"],
     url: canonicalUrl(page.path),

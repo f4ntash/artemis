@@ -1,5 +1,10 @@
 "use client";
 
+import { withBasePath } from "@/lib/assetPath";
+
+const TERRAMBU_IMAGE_URL = withBasePath("/projects/terrambu-hotel-web.webp");
+const MAPA_PUNILLA_IMAGE_URL = withBasePath("/projects/mapa-punilla-web.webp");
+
 const uses = [
   {
     number: "01",
@@ -112,13 +117,13 @@ export default function CommercialIntro() {
             <span>RA / RV</span>
           </div>
         </div>
-        <div className="commercial-hero-visual" aria-label="Proyectos de ARTEMIS">
+        <div className="commercial-hero-visual" aria-label="Proyectos de Corsteno">
           <figure className="hero-project hero-project-primary">
-            <img src="/artemis/projects/terrambu-hotel-web.webp" alt="Sitio web para hotel boutique Terrambú desarrollado por ARTEMIS" />
+            <img src={TERRAMBU_IMAGE_URL} alt="Sitio web para hotel boutique Terrambú desarrollado por Corsteno" />
             <figcaption>Experiencia web · Terrambú</figcaption>
           </figure>
           <figure className="hero-project hero-project-secondary">
-            <img src="/artemis/projects/mapa-punilla-web.webp" alt="Plataforma web Mapa Punilla desarrollada por ARTEMIS" />
+            <img src={MAPA_PUNILLA_IMAGE_URL} alt="Plataforma web Mapa Punilla desarrollada por Corsteno" />
             <figcaption>Plataforma interactiva · Mapa Punilla</figcaption>
           </figure>
           <div className="hero-visual-note">

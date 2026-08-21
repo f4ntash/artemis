@@ -66,7 +66,7 @@ export default function Capabilities() {
         ))}
       </ol>
       <div className="cap-engine">
-        <span className="label">ARTEMIS Engine</span>
+        <span className="label">Corsteno Engine</span>
         <h2>Un sistema reutilizable para construir configuradores 3D a partir de productos y proyectos reales.</h2>
         <p>
           Modelo 3D + partes configurables + variantes + interfaz + web → experiencia lista para integrar.

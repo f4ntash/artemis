@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: site.locale,
     type: "website",
-    images: [{ url: assetUrl(site.defaultImage), alt: "Experiencias web y 3D desarrolladas por ARTEMIS" }],
+    images: [{ url: assetUrl(site.defaultImage), alt: "Experiencias web y 3D desarrolladas por Corsteno" }],
   },
   twitter: {
     card: "summary_large_image",

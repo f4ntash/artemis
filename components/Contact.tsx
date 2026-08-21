@@ -24,7 +24,7 @@ export default function Contact() {
         </a>
       </div>
       <footer className="contact-footer">
-        <span className="meta">ARTEMIS · Argentina</span>
+        <span className="meta">Corsteno · Argentina</span>
         <span className="meta">Ver · Probar · Configurar · Decidir</span>
       </footer>
     </section>

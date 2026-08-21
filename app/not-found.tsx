@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { site } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Página no encontrada | ARTEMIS",
-  description: "La página solicitada no existe en ARTEMIS.",
+  title: "Página no encontrada | Corsteno",
+  description: "La página solicitada no existe en Corsteno.",
   robots: {
     index: false,
     follow: true,

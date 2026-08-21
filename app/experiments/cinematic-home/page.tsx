@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import CinematicExperience from "@/components/cinematic/CinematicExperience";
 
 export const metadata: Metadata = {
-  title: "Cinematic Home — ARTEMIS",
-  description: "Estudio experimental de cámara, materialidad e iluminación para ARTEMIS.",
+  title: "Cinematic Home — Corsteno",
+  description: "Estudio experimental de cámara, materialidad e iluminación para Corsteno.",
   robots: {
     index: false,
     follow: false,

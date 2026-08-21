@@ -67,7 +67,7 @@ export default function Navigation() {
       data-od-id="navegacion-principal"
     >
       <a className="brand" href="#que-hacemos" data-od-id="marca-forma-3d" onClick={closeMenu}>
-        ARTEMIS
+        Corsteno
       </a>
       <button
         className="menu-toggle"

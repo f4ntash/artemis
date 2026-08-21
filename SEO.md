@@ -2,13 +2,13 @@
 
 ## Canonical y despliegue
 
-El sitio usa `NEXT_PUBLIC_SITE_URL` como URL canónica. Para GitHub Pages con `basePath: /artemis`, el valor debe incluir el subdirectorio completo.
+El sitio usa `NEXT_PUBLIC_SITE_URL` como URL canónica. Para GitHub Pages con `basePath: /corsteno`, el valor debe incluir el subdirectorio completo.
 
 ## Google Search Console
 
 1. Configurar la propiedad con la URL canónica final.
 2. Agregar el token de verificación en `NEXT_PUBLIC_GSC_VERIFICATION`.
-3. Enviar `https://matu.github.io/artemis/sitemap.xml` o la URL equivalente del dominio final.
+3. Enviar `https://f4ntash.github.io/corsteno/sitemap.xml` o la URL equivalente del dominio final.
 
 ## Google Analytics 4
 
